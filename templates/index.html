@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library Management</title>
+  </head>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      margin-bottom: 5px;
+    }
+
+    input[type="text"] {
+      width: 200px; /* Adjust width as needed */
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+    input[type="reset"] {
+        background-color: #ff8080; /* Light pink */
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px; /* Add margin for spacing */
+      }
+
+      input[type="reset"]:hover {
+        background-color: #ff6666; /* Darker pink on hover */
+      }
+      
+        
+
+        .container {
+            text-align: center;
+        }
+
+        .search-bar {
+            width: 300px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        .update-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .update-btn:hover {
+            background-color: #0056b3;
+        }
+        #update-form {
+            display: none; /* Hide the form by default */
+        }
+        body {
+            background-color: #ffe6e6; /* Pastel pink background */
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #update-button {
+            background-color: #ffb3b3; /* Pastel pink background */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #book-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        #book-table th {
+            padding: 10px;
+            background-color: #f2f2f2; /* Lighter color for column names */
+            border-bottom: 2px solid #ddd;
+            text-align: left;
+        }
+
+        #book-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #book-table .darker {
+            background-color: #d9d9d9; /* Darker color for column names */
+        }
+
+        #pagination {
+            text-align: center;
+        }
+
+        #pagination button {
+            background-color: #ffb3b3; /* Pastel pink background */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        #pagination button:hover {
+            background-color: #ff9999; /* Lighter shade on hover */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        
+  </style>
+  <body>
+        <div class="container" id="home-page">
+          <h2>Welcome to Library Management</h2>
+          <input type="text" id="search-input" placeholder="Search by title, author, or subject">
+        <button id="search-button">Search</button>
+          <br>
+          <button class="update-btn" id="show-update-form">Update</button>
+          <table id="book-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Subject</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="book-table-body">
+                <!-- Data from the database will be inserted here -->
+            </tbody>
+        </table>
+        <div id="pagination">
+          <button id="prev-page">Previous</button>
+          <span id="page-info"></span>
+          <button id="next-page">Next</button>
+      </div>
+      </div>
+      <div class="update-form">
+            <!-- <h2>Library Management </h2> -->
+            <form id="update-form"  action="/update" method="POST">
+              
+                <div class="form-group">
+                  <label for="title">Title:</label>
+                  <input
+                    type="text"
+                    id="Title"
+                    name="Title"
+                    
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                    <label for="Author">Author:</label>
+                    <input
+                      type="text"
+                      id="Author"
+                      name="Author"
+                      
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="Subject">Subject:</label>
+                    <input
+                      type="text"
+                      id="Subject"
+                      name="Subject"
+                      
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="Date">Date:</label>
+                    <input
+                      type="text"
+                      id="Date"
+                      name="Date"
+                      
+                      required
+                    />
+                  </div>
+                  
+                  <button type="submit" id="update-option">Update</button>
+                  <input type="reset" value="Reset" />
+                  <button id="back-to-home">Back to Home</button>
+        </div>
+        
+    <script>
+      const homePage = document.getElementById("home-page");
+      const updateForm = document.getElementById("update-form");
+
+      document.getElementById("show-update-form").addEventListener("click", function () {
+          homePage.style.display = "none"; // Hide the home page
+          updateForm.style.display = "block"; // Show the update form
+      });
+
+      document.getElementById("back-to-home").addEventListener("click", function () {
+          homePage.style.display = "block"; // Show the home page
+          updateForm.style.display = "none"; // Hide the update form
+      });
+  </script>
+    <script>
+              document.getElementById("update-form").addEventListener("submit", function (event) {
+            console.log("clicked");
+            event.preventDefault();
+
+            const title = document.getElementById("Title").value;
+            const author = document.getElementById("Author").value;
+            const subject = document.getElementById("Subject").value;
+            const date = document.getElementById("Date").value;
+
+            const employeeData = {
+                title,
+                author,
+                subject,
+                date,
+            };
+
+            fetch("/update", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json", // Set Content-Type header
+                },
+                body: JSON.stringify(employeeData),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data.message); // Log success message
+                // You can perform actions after successful submission if needed
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                // Handle error
+            });
+        });
+
+    </script>
+    <script>
+      let currentPage = 1;
+      const perPage = 5;
+
+      function loadPage(page) {
+          fetch(`/fetch_data?page=${page}&per_page=${perPage}`)
+              .then(response => response.json())
+              .then(data => {
+                  const tableBody = document.getElementById("book-table-body");
+                  tableBody.innerHTML = "";
+                  data.data.forEach(book => {
+                      const row = document.createElement("tr");
+                      row.innerHTML = `
+                          <td>${book.title}</td>
+                          <td>${book.author}</td>
+                          <td>${book.subject}</td>
+                          <td>${book.date}</td>
+                      `;
+                      tableBody.appendChild(row);
+                  });
+                  const totalPages = Math.ceil(data.total_count / perPage);
+                  document.getElementById("page-info").textContent = `Page ${currentPage} of ${totalPages}`;
+                  document.getElementById("pagination").style.display = "block";
+                  document.getElementById("prev-page").disabled = currentPage === 1;
+                  document.getElementById("next-page").disabled = currentPage === totalPages;
+              })
+              .catch(error => console.error("Error fetching data:", error));
+      }
+
+      document.getElementById("prev-page").addEventListener("click", () => {
+          if (currentPage > 1) {
+              currentPage--;
+              loadPage(currentPage);
+          }
+      });
+
+      document.getElementById("next-page").addEventListener("click", () => {
+          currentPage++;
+          loadPage(currentPage);
+      });
+
+      // Initial page load
+      loadPage(currentPage);
+  </script>
+  <script>
+    document.getElementById("search-button").addEventListener("click", () => {
+        const query = document.getElementById("search-input").value.trim();
+        fetch(`/search_books?query=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById("book-table-body");
+                tableBody.innerHTML = "";
+                data.forEach(book => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${book.title}</td>
+                        <td>${book.author}</td>
+                        <td>${book.subject}</td>
+                        <td>${book.date}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error("Error fetching data:", error));
+    });
+</script>
+  </body>
+</html>
